@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
-                    bat "mkdir ${DEPLOY_DIR}"
+                    if (!fileExists("${DEPLOY_DIR}")) bat "mkdir ${DEPLOY_DIR}"
                     bat "copy target\\*.jar ${DEPLOY_DIR}\\ /Y"
                 }
             }
