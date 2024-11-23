@@ -23,6 +23,12 @@ pipeline {
             }
         }
 
+        stage('Run') {
+            steps {
+                bat 'java -jar target/my-app-1.0-SNAPSHOT.jar'
+            }
+        }
+
         stage('Deploy to dev') {
             steps {
                 script {
