@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
-                    bat 'mvn clean package'
+                    bat 'mvn clean compile'
                 }
             }
         }
