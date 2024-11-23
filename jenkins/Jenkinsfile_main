@@ -24,11 +24,6 @@ pipeline {
                 }
             }
         }
-        stage('Run') {
-            steps {
-                bat 'java -jar target/${NAME}-${VERSION}.jar'
-            }
-        }
     }
 
     post {
