@@ -6,10 +6,18 @@ pipeline {
     }
 
     stages {
+        stage('Compilation') {
+            steps {
+                withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
+                    bat 'mvn clean compile'
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
-                    bat 'mvn -B -DskipTests clean package'
+                    bat 'mvn package'
                 }
             }
         }
@@ -31,7 +39,7 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            echo 'Fini.'
         }
     }
 }
