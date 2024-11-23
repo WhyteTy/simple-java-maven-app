@@ -6,18 +6,10 @@ pipeline {
     }
 
     stages {
-        stage('Compilation') {
-            steps {
-                withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
-                    bat 'mvn clean compile'
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
-                    bat 'mvn package'
+                    bat 'mvn clean package'
                 }
             }
         }
