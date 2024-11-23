@@ -24,7 +24,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat 'mvn deploy'
+                withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
+                    bat 'mvn deploy'
+                }
             }
         }
     }
