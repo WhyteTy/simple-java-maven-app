@@ -25,8 +25,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                    if (!fileExists("${DEPLOY_DIR}")) bat "mkdir ${DEPLOY_DIR}"
+                script {
+                    if (!fileExists("${DEPLOY_DIR}")) { 
+                        bat "mkdir ${DEPLOY_DIR}" 
+                    }
                     bat "copy target\\*.jar ${DEPLOY_DIR}\\ /Y"
+                }
             }
         }
     }
