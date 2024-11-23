@@ -1,26 +1,37 @@
 pipeline {
     agent any
-    
+
+    environment {
+        MAVEN_HOME = tool name: 'Maven 3.9.9', type: 'maven'
+    }
+
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
+                withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
+                    bat 'mvn -B -DskipTests clean package'
                 }
             }
         }
-        stage('Deliver') {
+
+        stage('Test') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
+                    bat 'mvn test'
+                }
             }
+        }
+
+        stage('Run') {
+            steps {
+                bat 'java -jar target/my-app-1.0-SNAPSHOT.jar'
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
