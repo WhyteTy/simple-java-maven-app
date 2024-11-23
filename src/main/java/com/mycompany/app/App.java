@@ -10,6 +10,7 @@ public class App {
     public App() {}
 
     public static void main(String[] args) {
+        System.out.println("Ceci est un message prédéfini :");
         System.out.println(MESSAGE);
     }
 
