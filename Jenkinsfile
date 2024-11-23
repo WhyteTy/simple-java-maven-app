@@ -21,10 +21,9 @@ pipeline {
                 }
             }
         }
-
-        stage('Run') {
+        stage('Deploy to dev') {
             steps {
-                bat 'java -jar target/my-app-1.0-SNAPSHOT.jar'
+                bat 'mvn deploy -Denv=dev'
             }
         }
     }
