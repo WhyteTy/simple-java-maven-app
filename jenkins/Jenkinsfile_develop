@@ -35,10 +35,10 @@ pipeline {
 
     post {
         success {
-            echo "Build and integration tests succeeded on branch: ${BRANCH_NAME}"
+            echo "Les tests et le déploiement sont un succès."
         }
         failure {
-            echo "Build or integration tests failed on branch: ${BRANCH_NAME}"
+            echo "Les tests et le déploiement ont échoués."
         }
     }
 }

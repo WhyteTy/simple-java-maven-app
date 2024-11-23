@@ -13,7 +13,6 @@ pipeline {
                 }
             }
         }
-
         stage('Test') {
             steps {
                 withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
@@ -21,7 +20,6 @@ pipeline {
                 }
             }
         }
-
         stage('Run') {
             steps {
                 bat 'java -jar target/${NAME}-${VERSION}.jar'

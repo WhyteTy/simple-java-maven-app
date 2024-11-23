@@ -14,15 +14,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Test') {
-            steps {
-                withEnv(["PATH+MAVEN=${MAVEN_HOME}/bin"]) {
-                    bat 'mvn test'
-                }
-            }
-        }
-
         stage('Deploy') {
             steps {
                 script {
@@ -32,6 +23,20 @@ pipeline {
                     bat "copy target\\*.jar ${DEPLOY_DIR}\\ /Y"
                 }
             }
+        }
+        stage('Run') {
+            steps {
+                bat 'java -jar target/${NAME}-${VERSION}.jar'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Le déploiement est un succès."
+        }
+        failure {
+            echo "Le déploiement à échoué."
         }
     }
 }
