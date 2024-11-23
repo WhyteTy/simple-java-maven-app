@@ -1,26 +1,25 @@
 pipeline {
     agent any
-
-    environment {
-        MAVEN_HOME = tool name: 'Maven 3.9.9', type: 'maven'
-    }
-
+    
     stages {
-        stage('Pull Latest Changes') {
+        stage('Build') {
             steps {
-                bat 'git pull origin master'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-
-        stage('Merge Feature Branch') {
+        stage('Test') {
             steps {
-                bat 'git merge origin/features'
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
         }
-
-        stage('Push Merged Changes') {
+        stage('Deliver') {
             steps {
-                bat 'git push origin master'
+                sh './jenkins/scripts/deliver.sh'
             }
         }
     }
