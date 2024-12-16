@@ -10,7 +10,7 @@ public class App {
     public App() {}
 
     public static void main(String[] args) {
-        System.out.println("Ceci est un message de l'IUT Gustave Eiffel :");
+        System.out.println("Ceci est un message de l'IUT Gustave Eiffele :");
         System.out.println(MESSAGE);
     }
 
